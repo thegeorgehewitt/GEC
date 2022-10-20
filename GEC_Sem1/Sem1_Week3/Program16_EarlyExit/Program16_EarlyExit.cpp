@@ -5,7 +5,7 @@ int main()
 {
     int playerLife = 100;
     int damage = 0;
-    cout << playerLife << endl;
+    cout << "Starting health: " << playerLife << endl;
 
     
     for (int i = 1; i < 11; i++)
@@ -22,7 +22,7 @@ int main()
     
     if (playerLife > 0)
     {
-        cout << "All questions asked. Player survived!" << endl;
+        cout << "All questions asked. Player survived with " << playerLife << " health!" << endl;
     }
 
 }
