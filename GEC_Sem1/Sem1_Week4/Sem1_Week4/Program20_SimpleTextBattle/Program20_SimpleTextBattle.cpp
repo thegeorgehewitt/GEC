@@ -21,8 +21,8 @@ int main()
 		cin >> attackType;
 		while (attackType != 1 && attackType != 2 && attackType != 3)
 		{
-			cin.clear();
-			cin.ignore(1000, '\n');
+			cin.clear(); //allows cin to run again if last entry was erronious
+			cin.ignore(1000, '\n'); //clears last entry from user
 			cout << "Hmm that doesn't seem right, try entering 1, 2 or 3." << endl;
 			cin >> attackType;
 		}
@@ -76,23 +76,24 @@ void chosenAttack(int a)
 
 bool playState()
 {
-	if (enemyHealth <= 0)
-	{
-		cout << "You killed the troll! You're finally free!" << endl;
-		Sleep(500);
-	}
-	if (playerHealth <= 0)
-	{
-		cout << "You died! You'll never escape this place." << endl;
-		Sleep(500);
-	}
-	
 	if (playerHealth <= 0 || enemyHealth <= 0)
 	{
+		if (playerHealth <= 0)
+		{
+			cout << "You died! You'll never escape this place." << endl;
+			Sleep(500);
+		}
+		else if (enemyHealth <= 0)
+		{
+			cout << "You killed the troll! You're free at last!" << endl;
+			Sleep(500);
+		}
+
 		do
 		{
 			cout << "Do you want to play again? (y/n)" << endl;
 			cin >> playAgain;
+			cin.ignore(1000, '\n'); //clears input, prevents error if user inputs multiple characters
 			playAgain = tolower(playAgain);
 
 			if (playAgain == 'y')
@@ -105,12 +106,15 @@ bool playState()
 			}
 			else if (playAgain == 'n')
 			{
+				cout << "Thanks for playing! Goodbye" << endl;
 				return false;
 			}
 			else
 			{
 				cout << "That doesn't look right, make sure to enter 'y' or 'n'." << endl;
 			}
+
+
 		} while (playAgain != 'y' && playAgain != 'n');
 	}
 
