@@ -14,35 +14,74 @@ int main()
     
     int score = 0;
     bool playing = true;
+    bool validInput = false;
     int guess1;
     int guess2;
 
     while (playing == true)
     {
         board();
+        validInput = false;
 
         do
         {
             cout << "Pick a card" << endl;
             cin >> guess1;
+            while (!(cin.good()))
+            {
+                cin.clear();
+                cin.ignore();
+                cout << "Please input the number of the card you wish to check:" << endl;
+                cin >> guess1;
+            }
             cout << "Pick another card" << endl;
             cin >> guess2;
+            while (!(cin.good()))
+            {
+                cin.clear();
+                cin.ignore();
+                cout << "Please input the number on the card you wish to check:" << endl;
+                cin >> guess1;
+            }
 
-            if (guess1 == guess2)
+            if (guess1 < 1 || guess1 > 10 || guess2 < 1 || guess2 > 10)
+            {
+                cout << "Please select from the available cards." << endl;
+                system("pause");
+            }
+            else if (found[guess1 - 1] == 1 || found[guess2 - 1] == 1)
+            {
+                cout << "You need to pick cards that haven't been matched yet." << endl;
+                system("pause");
+            }
+            else if (guess1 == guess2)
+            {
                 cout << "You need to pick two different cards." << endl;
-        } while (guess1 == guess2);
-        
-        if (cardFaces[(guess1-1)] == cardFaces[(guess2-1)])
-        {
-            score++;
-            found[guess1 - 1] = true;
-            found[guess2 - 1] = true;
-        }
+            }
+            else
+            {
+                validInput = true;
 
-        if (cardFaces[(guess1 - 1)] != cardFaces[(guess2 - 1)])
+                if (cardFaces[(guess1 - 1)] == cardFaces[(guess2 - 1)])
+                {
+                    score++;
+                    found[guess1 - 1] = 1;
+                    found[guess2 - 1] = 1;
+                }
+            }
+        } while (!validInput);
+        
+        guessCount++;
+
+        guess(guess1, guess2);
+
+        if (cardFaces[(guess1 - 1)] == cardFaces[(guess2 - 1)])
         {
-            guess(guess1, guess2);
-            system("pause");
+            cout << "That's a match!" << endl;
+        }
+        else
+        {
+            cout << "Not a match." << endl;
         }
 
         if (score == 5)
@@ -50,11 +89,8 @@ int main()
             cout << "You win!" << endl;
             playing = false;
         }
-        else
-        {
-            guessCount++;
-        }
-                
+
+        system("pause");
     }
 
 }
@@ -62,7 +98,15 @@ int main()
 void board()
 {
     system("cls");
-    cout << "You have made " << guessCount << " guess(es)." << endl;
+
+    string guessAmount = " guesses";
+
+    if (guessCount == 1)
+    {
+        guessAmount = " guess.";
+    }
+
+    cout << "You have made " << guessCount << guessAmount << endl;
 
     for (int i = 0; i < 10; i++)
     {
@@ -85,7 +129,14 @@ void board()
 void guess(int a, int b)
 {
     system("cls");
-    cout << "You have made " << guessCount << " guess(es)." << endl;
+    string guessAmount = " guesses";
+
+    if (guessCount == 1)
+    {
+        guessAmount = " guess.";
+    }
+
+    cout << "You have made " << guessCount << guessAmount << endl;
 
     for (int i = 0; i < 10; i++)
     {
@@ -103,5 +154,4 @@ void guess(int a, int b)
             cout << endl;
         }
     }
-
 }
