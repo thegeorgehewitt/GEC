@@ -1,3 +1,0 @@
-﻿  Program7_converting.cpp
-C:\George\test\Program7_converting\Program7_converting\Program7_converting.cpp(10,33): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-  Program7_converting.vcxproj -> C:\George\test\Program7_converting\x64\Debug\Program7_converting.exe
