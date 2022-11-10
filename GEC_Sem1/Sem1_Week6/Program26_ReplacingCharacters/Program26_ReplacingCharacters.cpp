@@ -4,12 +4,14 @@ using namespace std;
 
 int main()
 {
-    string fullName;
+    string sentence;
     cout << "Please input a sentence." << endl;
-    getline(cin, fullName);
+    getline(cin, sentence);
 
-    while (fullName.find("e") > 0)
+    while (sentence.find("e") >= 0 && sentence.find("e") <= sentence.length())
     {
-        
+        sentence.replace(sentence.find("e"), 1, "x");
     }
+
+    cout << sentence << endl;
 }
