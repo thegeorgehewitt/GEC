@@ -1,20 +1,66 @@
-// Program38_AccountHolding.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-
 #include <iostream>
+#include <fstream>
+#include <string>
+using namespace std;
+
+struct userDetails
+{
+    string name;
+    int accountNum;
+    double balance;
+};
 
 int main()
 {
-    std::cout << "Hello World!\n";
+    userDetails inputDetails;
+    userDetails readDetails;
+    bool inputs;
+    bool read;
+    int choice = 0;
+    char repeat;
+
+    ofstream outFile;
+    ifstream inFile;
+
+
+    while (choice != 4)
+    {
+        cout << "Please input your choice:\n1 Enter new details\n2 Display file contents\n3 Display accounts with balance above £10,000\n4 Exit program" << endl;
+
+        cin >> choice;
+    }
+
+    while (inputs)
+    {
+        cout << "What is your name?" << endl;
+        getline(cin, inputDetails.name);
+        cout << "What is your account number?" << endl;
+        cin >> inputDetails.accountNum;
+        cout << "What is your balance?" << endl;
+        cin >> inputDetails.balance;
+
+
+        while (true)
+        {
+            cout << "Do you want to enter another user's details?" << endl;
+            string answer;
+            cin >> answer;
+            for (int i = 0; i > answer.length(); i++)
+            {
+                answer[i] = tolower(answer[i]);
+            }
+
+            if (answer == "no")
+            {
+                inputs = false;
+                break;
+            }
+            else if (answer != "yes")
+            {
+                cout << "Please enter yes or no." << endl;
+            }
+        }
+
+
+    }
 }
-
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
-
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
