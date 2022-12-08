@@ -7,26 +7,18 @@ using namespace std;
 void loadScores(int* score, string* name);
 void updateScores(int* score, string* name);
 void printScores(int* score, string* name);
+void sortArray(int* score);
 
 struct name_score
 {
     int score;
     string name;
 };
-
+bool CustomSort(name_score lhs, name_score rhs);
 int main()
 {
-    name_score place1;
-    name_score place2;
-    name_score place3;
-    name_score place4;
-    name_score place5;
-    name_score place6;
-    name_score place7;
-    name_score place8;
-    name_score place9;
-    name_score place10;
-    int scores[10] = {place1.score, place2.score, place3.score, place4.score, place5.score, place6.score, place7.score, place8.score, place9.score, place10.score };
+    name_score place1, place2, place3, place4, place5, place6, place7, place8, place9, place10;
+    // int scores[10] = {place1.score, place2.score, place3.score, place4.score, place5.score, place6.score, place7.score, place8.score, place9.score, place10.score };
     name_score places[10] = { place1, place2, place3, place4, place5, place6, place7, place8, place9, place10 };
 
 
@@ -52,19 +44,41 @@ int main()
         if (choice == 1)
         {
             cout << "Please input a name." << endl;
+            cin.ignore();
             getline(cin, name);
 
             cout << "Please input a score." << endl;
             cin >> score;
 
+            for (int i = 0; i < 10; i++)
+            {
+                if (places[i].name == "");
+                places[i].score = score;
+                places[i].name = name;
+            }
             if (score > (places[9]).score)
             {
                 
                 (places[9]).score = score;
-                sort(places, places + 10), greater<int>();
+                (places[9]).name = name;
+                sort(places, places + 10, &CustomSort);
+            }
+        }
+        else if (choice == 2)
+        {
+            for (int i = 0; i < 1; i++)
+            {
+                cout << (places[i]).name << endl;
+                cout << (places[i]).score << endl;
             }
         }
     }
+
+}
+
+bool CustomSort(name_score lhs, name_score rhs)
+{
+    return lhs.score > rhs.score;
 
 }
 
@@ -104,4 +118,9 @@ void printScores(int* score, string* name)
         cout << (name + i) << endl;
         cout << (score + i) << endl;
     }
+}
+
+void sortArray(int* score)
+{
+    
 }
