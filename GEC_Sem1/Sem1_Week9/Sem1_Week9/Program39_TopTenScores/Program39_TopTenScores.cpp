@@ -1,12 +1,8 @@
 #include <iostream>
+#include <iomanip>
 #include <fstream>
 #include <string>
-#include <algorithm>
 using namespace std;
-
-void loadScores(int* score, string* name);
-void updateScores(int* score, string* name);
-void printScores(int* score, string* name);
 
 struct name_score
 {
@@ -14,94 +10,167 @@ struct name_score
     string name;
 };
 
+void loadScores(name_score* pPlaces);
+void updateScores(name_score* pPlaces);
+
 int main()
 {
-    name_score place1;
-    name_score place2;
-    name_score place3;
-    name_score place4;
-    name_score place5;
-    name_score place6;
-    name_score place7;
-    name_score place8;
-    name_score place9;
-    name_score place10;
-    int scores[10] = {place1.score, place2.score, place3.score, place4.score, place5.score, place6.score, place7.score, place8.score, place9.score, place10.score };
+    name_score place1, place2, place3, place4, place5, place6, place7, place8, place9, place10;
     name_score places[10] = { place1, place2, place3, place4, place5, place6, place7, place8, place9, place10 };
 
+    name_score* pPlaces = &places[0];
 
     while (true)
     {
         string name;
+        string scoreStr;
         int score;
         int choice = 0;
 
+        loadScores(pPlaces);
+
+        cout << endl;
+        cout << setfill('-') << setw(16) << "Menu" << setw(12) << "\n" << endl;
+        cout << setfill(' ') << setw(21) << "1. Enter a Score" << endl;
+        cout << setw(21) << "2. Top 10 Scores" << endl;
+        cout << setw(13) << "3. Exit\n" << endl;
+
         while (choice < 1 || choice > 3)
         {
-            cout << "Menu\n1. Enter a Score\n2. Display Scores\n3. Exit" << endl;
+            cout << setw(13) << " ";
             cin >> choice;
 
             if (cin.fail() || choice < 1 || choice > 3)
             {
                 cin.clear();
-                cin.ignore();
-                cout << "Please input 1, 2 or 3.";
+                cin.ignore(100, '\n');
+                cout << setw(26) << "Please input 1, 2 or 3." << endl;
             }
         }
+
+        system("cls");
+        cout << endl;
 
         if (choice == 1)
         {
-            cout << "Please input a name." << endl;
+            cout << setw(24) << "Please input a name." << endl;
+            cout << endl;
+            cin.ignore();
             getline(cin, name);
 
-            cout << "Please input a score." << endl;
+            score = 0;
+
+            cout << endl;
+            cout << setw(24) << "Please input a score." << endl;
+            cout << endl;
             cin >> score;
-
-            if (score > (places[9]).score)
+            while (score == 0)
             {
-                
-                (places[9]).score = score;
-                sort(places, places + 10), greater<int>();
+                cout << endl;
+                cout << setw(25) << "Please enter a number." << endl;
+                cout << endl;
+                cin.clear();
+                cin.ignore(100, '\n');
+                cin >> score;
             }
-        }
-    }
 
+            for (int i = 0; i < 10; i++)
+            {
+                if (places[i].score < score)
+                {
+                    for (int j = 9; j > i; j--)
+                    {
+                        (places[j]).score = (places[j - 1]).score;
+                        (places[j]).name = (places[j - 1]).name;
+                    }
+                    (places[i]).score = score;
+                    (places[i]).name = name;
+                    i = 10;
+                }
+            }
+            updateScores(pPlaces);
+        }
+
+        else if (choice == 2)
+        {
+            bool scoreFound = false;
+
+            cout << setfill('-') << setw(20) << "Top 10 Scores" << setw(8) << "\n" << endl;
+
+            for (int i = 0; i < 10; i++)
+            {
+                if ((places[i]).score > 0)
+                {
+                    name = places[i].name;
+                    scoreStr = to_string((places[i]).score);
+
+                    cout << setfill(' ') << setw( ( (28 - name.length() ) / 2 ) + name.length() ) << name << endl;
+                    cout << setw( ( (28 - scoreStr.length() ) / 2 ) + scoreStr.length() ) << scoreStr << endl;
+
+                    cout << endl;
+
+                    scoreFound = true;
+                }
+            }
+            if (!scoreFound)
+            {
+                cout << "No scores currently held." << endl;
+            }
+            system("PAUSE");
+        }
+        else
+        {
+            cout << "Thank you, goodbye." << endl;
+            system("PAUSE");
+            exit(1);
+        }
+        system("cls");
+    }
 }
 
-void loadScores(int* score, string* name)
+void loadScores(name_score* pPlaces)
 {
     ifstream inFile;
     int count = 0;
 
     inFile.open("Scores.txt");
 
-    while (inFile >> *(name + count))
+    if (inFile.is_open())
     {
-        inFile >> *(score + count);
-        count++;
+        string line;
+
+        while (getline(inFile, line))
+        {
+            (*(pPlaces + count)).name = line;
+
+            getline(inFile, line);
+            ((*(pPlaces + count)).score) = stoi(line, 0);
+
+            count++;
+        }
     }
     
     inFile.close();
 }
 
-void updateScores(int* score, string* name)
+void updateScores(name_score* pPlaces)
 {
     ofstream outFile;
 
-    for (int i = 0; i < 10; i++)
+    outFile.open("Scores.txt");
+
+    if (outFile.is_open())
     {
-        outFile << (name + i);
-        outFile << (score + i);
+        for (int i = 0; i < 10; i++)
+        {
+            outFile << (*(pPlaces + i)).name << endl;
+            outFile << (*(pPlaces + i)).score << endl;
+        }
+    }
+    else
+    {
+        cout << "There was an issue with accessing the file.";
     }
 
     outFile.close();
-}
-
-void printScores(int* score, string* name)
-{
-    for (int i = 0; i < 10; i++)
-    {
-        cout << (name + i) << endl;
-        cout << (score + i) << endl;
-    }
 }
