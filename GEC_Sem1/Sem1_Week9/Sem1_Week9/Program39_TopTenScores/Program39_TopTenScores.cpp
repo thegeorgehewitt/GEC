@@ -52,9 +52,13 @@ int main()
 
             for (int i = 0; i < 10; i++)
             {
-                if (places[i].name == "");
-                places[i].score = score;
-                places[i].name = name;
+                if (places[i].score < score);
+                {
+                    
+                    places[i].score = score;
+                    places[i].name = name;
+                    i = 10;
+                }
             }
             if (score > (places[9]).score)
             {
