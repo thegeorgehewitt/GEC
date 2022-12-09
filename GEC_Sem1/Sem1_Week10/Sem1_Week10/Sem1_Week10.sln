@@ -1,8 +1,8 @@
-﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32516.85
 MinimumVisualStudioVersion = 10.0.40219.1
+Sem1_Week10
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Sem1_Week10_Tutorial", "Sem1_Week10_Tutorial\Sem1_Week10_Tutorial.vcxproj", "{058D8CFA-D9D6-43F3-9D0A-82F847BFEA9E}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Sem1_Week10_CreatingOrder", "Sem1_Week10_CreatingOrder\Sem1_Week10_CreatingOrder.vcxproj", "{560D19BC-3387-41D0-B688-054281859AA6}"
@@ -10,6 +10,8 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PolymorphicBehaviour", "PolymorphicBehaviour\PolymorphicBehaviour.vcxproj", "{32159080-2F74-4CE6-B184-D7028406B5D9}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Program40_ePetCare", "Program40_ePetCare\Program40_ePetCare.vcxproj", "{1FACE3E3-0E75-44F0-BEB1-4625E20116D0}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Sem1_Week10", "Sem1_Week10\Sem1_Week10.vcxproj", "{37C53DE4-AA03-4767-85F8-098600B8361C}"
+main
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,6 +21,7 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+Sem1_Week10
 		{058D8CFA-D9D6-43F3-9D0A-82F847BFEA9E}.Debug|x64.ActiveCfg = Debug|x64
 		{058D8CFA-D9D6-43F3-9D0A-82F847BFEA9E}.Debug|x64.Build.0 = Debug|x64
 		{058D8CFA-D9D6-43F3-9D0A-82F847BFEA9E}.Debug|x86.ActiveCfg = Debug|Win32
@@ -51,6 +54,15 @@ Global
 		{1FACE3E3-0E75-44F0-BEB1-4625E20116D0}.Release|x64.Build.0 = Release|x64
 		{1FACE3E3-0E75-44F0-BEB1-4625E20116D0}.Release|x86.ActiveCfg = Release|Win32
 		{1FACE3E3-0E75-44F0-BEB1-4625E20116D0}.Release|x86.Build.0 = Release|Win32
+		{37C53DE4-AA03-4767-85F8-098600B8361C}.Debug|x64.ActiveCfg = Debug|x64
+		{37C53DE4-AA03-4767-85F8-098600B8361C}.Debug|x64.Build.0 = Debug|x64
+		{37C53DE4-AA03-4767-85F8-098600B8361C}.Debug|x86.ActiveCfg = Debug|Win32
+		{37C53DE4-AA03-4767-85F8-098600B8361C}.Debug|x86.Build.0 = Debug|Win32
+		{37C53DE4-AA03-4767-85F8-098600B8361C}.Release|x64.ActiveCfg = Release|x64
+		{37C53DE4-AA03-4767-85F8-098600B8361C}.Release|x64.Build.0 = Release|x64
+		{37C53DE4-AA03-4767-85F8-098600B8361C}.Release|x86.ActiveCfg = Release|Win32
+		{37C53DE4-AA03-4767-85F8-098600B8361C}.Release|x86.Build.0 = Release|Win32
+main
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
