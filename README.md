@@ -16,7 +16,7 @@ The repository consists of varies programs implementing many of the basic princi
 - File Handling
 
 ## Technologies
-A list of technologies used within the project:
+Technologies used within the project:
 
 [VisualStudio2022](https://visualstudio.microsoft.com/): Version 17.2.1
 
