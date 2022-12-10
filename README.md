@@ -14,7 +14,7 @@ The project consists of varies programs implementing many of the basic principle
 - Functions
 - Structs and Classes
 - Pointer and References
-- - File Handling
+- File Handling
 ![Image](https://imgur.com/sjQjdtL)
 
 ## Technologies
