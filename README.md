@@ -1,3 +1,4 @@
+***
 # GEC
 This repository contains programs for Game Engine Creation Year 1, Semester 1.
 ***
@@ -20,4 +21,5 @@ A list of technologies used within the project:
 [VisualStudio2022](https://visualstudio.microsoft.com/): Version 17.2.1
 ***
 ## Installation
-$ Git Clone https://github.com/thegeorgehewitt/GEC.git
+Git Clone https://github.com/thegeorgehewitt/GEC.git
+***
