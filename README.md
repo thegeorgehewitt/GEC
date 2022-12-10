@@ -1,6 +1,6 @@
 # GEC
 This repository contains programs for Game Engine Creation Year 1, Semester 1.
-![Image](https://imgur.com/sjQjdtL "GEC")
+![Image](https://img1.pnghut.com/t/13/14/25/YJW1ATwZSF/symbol-computer-programming-logo-iso-image-cdr.jpg "GEC")
 
 ## Table of Contents
 1. [General Info](#general-info)
