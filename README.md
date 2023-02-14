@@ -1,5 +1,5 @@
 # GEC
-This repository contains my programs for Game Engine Creation Year 1, Semester 1.
+This repository contains my programs for Game Engine Creation Year 1, Semester 1 and 2.
 
 ## Table of Contents
 1. [General Info](#general-info)
