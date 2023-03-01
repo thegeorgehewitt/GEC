@@ -17,12 +17,15 @@ SDL_Texture* g_texture = nullptr;
 bool InitSDL();
 void CloseSDL();
 bool Update();
-void Render();
+void Render(float angle);
 SDL_Texture* LoadTextureFromFile(string path);
 void FreeTexture();
+float ChangeAngle();
 
 int main(int argc, char* args[])
 {
+	float angle = 0;
+
 	//check if sdl was setup correctly
 	if (InitSDL())
 	{
@@ -31,8 +34,9 @@ int main(int argc, char* args[])
 		// Game Loop
 		while (!quit)
 		{
-			Render();
+			Render(angle);
 			quit = Update();
+			angle += ChangeAngle();
 		}
 	}
 
@@ -134,14 +138,13 @@ bool Update()
 		case SDLK_q:
 			return true;
 			break;
-		}
-			
+		}	
 	}
 
 	return false;
 }
 
-void Render()
+void Render(float angle)
 {
 	//Clear the screen
 	SDL_SetRenderDrawColor(g_renderer, 0xFF, 0xFF, 0xFF, 0xFF);
@@ -151,7 +154,7 @@ void Render()
 	SDL_Rect renderLocation = { 0,0,SCREEN_WIDTH,SCREEN_HEIGHT };
 
 	//Render to screen
-	SDL_RenderCopyEx(g_renderer, g_texture, NULL, &renderLocation, 0, NULL, SDL_FLIP_NONE);
+	SDL_RenderCopyEx(g_renderer, g_texture, NULL, &renderLocation, angle, NULL, SDL_FLIP_NONE);
 
 	//Update the screeb
 	SDL_RenderPresent(g_renderer);
@@ -194,4 +197,27 @@ void FreeTexture()
 		SDL_DestroyTexture(g_texture);
 		g_texture = nullptr;
 	}
+}
+
+float ChangeAngle()
+{
+	SDL_Event(event);
+
+	SDL_PollEvent(&event);
+
+	switch (event.type)
+	{
+	case SDL_KEYUP:
+		switch (event.key.keysym.sym)
+		{
+		case SDLK_RIGHT:
+			return 5;
+			break;
+		case SDLK_LEFT:
+			return -5;
+			break;
+		}
+	}
+
+	return 0;
 }
