@@ -30,7 +30,7 @@ int main(int argc, char* args[])
 	//check if sdl was setup correctly
 	if (InitSDL())
 	{
-		game_screen_manager = new GameScreenManager(g_renderer, SCREEN_LEVEL1);
+		game_screen_manager = new GameScreenManager(g_renderer, SCREEN_INTRO);
 		g_old_time = SDL_GetTicks();
 
 		bool quit = false;
@@ -138,7 +138,25 @@ bool Update()
 		case SDLK_q:
 			return true;
 			break;
-		}	
+		}
+	default:;
+	}
+
+	SDL_Event s;
+
+	SDL_PollEvent(&s);
+
+	switch (s.type)
+	{
+	case SDL_KEYUP:
+		switch (s.key.keysym.sym)
+		{
+		case SDLK_s:
+			game_screen_manager->ChangeScreen(SCREEN_LEVEL1);
+			break;
+		default:;
+		}
+	default:;
 	}
 
 	game_screen_manager->Update(float(new_time - g_old_time) / 1000.0f, e);
