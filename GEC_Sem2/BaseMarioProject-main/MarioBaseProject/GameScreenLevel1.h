@@ -5,14 +5,20 @@
 #include "GameScreen.h"
 #include "Commons.h"
 
+class Texture2D;
+
 class GameScreenLevel1 : GameScreen
 {
-	class Texture2D;
+private:
+	Texture2D* m_background_texture;
+
+	bool SetUpLevel();
 public:
-	SDL_Renderer* renderer;
-/*protected:
 	GameScreenLevel1(SDL_Renderer* renderer);
-	~GameScreenLevel1();*/
+	~GameScreenLevel1();
+
+	void Render() override;
+	void Update(float deltaTime, SDL_Event e) override;
 };
 
 #endif _GAMESCREENLEVEL1_H

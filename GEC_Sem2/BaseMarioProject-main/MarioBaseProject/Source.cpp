@@ -6,6 +6,7 @@
 #include "constants.h"
 #include "Commons.h"
 #include "Texture2D.h"
+#include "GameScreenManager.h"
 
 #include <iostream>
 using namespace std;
@@ -13,30 +14,32 @@ using namespace std;
 //Globals
 SDL_Window* g_window = nullptr;
 SDL_Renderer* g_renderer = nullptr;
-Texture2D* g_texture = nullptr;
+GameScreenManager* game_screen_manager;
+Uint32 g_old_time;
 
 //Function prototypes
 bool InitSDL();
 void CloseSDL();
 bool Update();
-void Render(float angle);
-float ChangeAngle();
+void Render();
+//float ChangeAngle();
 
 int main(int argc, char* args[])
 {
-	float angle = 0;
 
 	//check if sdl was setup correctly
 	if (InitSDL())
 	{
+		game_screen_manager = new GameScreenManager(g_renderer, SCREEN_LEVEL1);
+		g_old_time = SDL_GetTicks();
+
 		bool quit = false;
 
 		// Game Loop
 		while (!quit)
 		{
-			Render(angle);
+			Render();
 			quit = Update();
-			angle += ChangeAngle();
 		}
 	}
 
@@ -87,14 +90,6 @@ bool InitSDL()
 			cout << "Renderer could not initialise. Error: " << SDL_GetError();
 			return false;
 		}
-
-		//Load the background texture
-		g_texture = new Texture2D(g_renderer);
-
-		if (!g_texture->LoadFromFile("Images/test.bmp"))
-		{
-			return false;
-		}
 	}
 
 	return true;
@@ -109,9 +104,9 @@ void CloseSDL()
 	SDL_DestroyRenderer(g_renderer);
 	g_renderer = nullptr;
 
-	//release the texture
-	delete g_texture;
-	g_texture = nullptr;
+	//destroy game screen manager
+	delete game_screen_manager;
+	game_screen_manager = nullptr;
 
 	//quit SDL subsystems
 	IMG_Quit();
@@ -120,6 +115,8 @@ void CloseSDL()
 
 bool Update()
 {
+	Uint32 new_time = SDL_GetTicks();
+
 	//Event Handler
 	SDL_Event e;
 
@@ -144,22 +141,26 @@ bool Update()
 		}	
 	}
 
+	game_screen_manager->Update(float(new_time - g_old_time) / 1000.0f, e);
+	g_old_time = new_time;
+
 	return false;
 }
 
-void Render(float angle)
+void Render()
 {
 	//Clear the screen
 	SDL_SetRenderDrawColor(g_renderer, 0xFF, 0xFF, 0xFF, 0xFF);
 	SDL_RenderClear(g_renderer);
 
-	g_texture->Render(Vector2D(), SDL_FLIP_NONE);
+	game_screen_manager->Render();
 
-	//Update the screeb
+	//Update the screen
 	SDL_RenderPresent(g_renderer);
+
 }
 
-float ChangeAngle()
+/*float ChangeAngle()
 {
 	SDL_Event(event);
 
@@ -180,4 +181,4 @@ float ChangeAngle()
 	}
 
 	return 0;
-}
+}*/
