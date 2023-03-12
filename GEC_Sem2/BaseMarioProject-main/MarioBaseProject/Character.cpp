@@ -1,6 +1,4 @@
 #include "Character.h"
-
-#include "Character.h"
 #include "Texture2D.h"
 #include "constants.h"
 
@@ -14,6 +12,7 @@ Character::Character(SDL_Renderer* renderer, string imagePath, Vector2D start_po
 	m_moving_right = false;
 	m_can_jump = false;
 	m_jumping = false;
+	m_jump_force = INITIAL_JUMP_FORCE;
 
 	if (!m_texture->LoadFromFile(imagePath))
 	{
@@ -65,25 +64,23 @@ void Character::Update(float deltaTime, SDL_Event e)
 
 	SDL_PollEvent(&e);
 
-	switch (e.type)
+	/*switch (e.type)
 	{
 	case SDL_KEYDOWN:
 		switch (e.key.keysym.sym)
 		{
-		case SDLK_UP:
-			if (m_can_jump)
-			{
-				Jump(deltaTime);
-				m_can_jump = false;
-			}
-			break;
 		case SDLK_RIGHT:
 			m_moving_right = true;
 			break;
 		case SDLK_LEFT:
 			m_moving_left = true;
 			break;
-		default:;
+		case SDLK_UP:
+			if (m_can_jump)
+			{
+				Jump(deltaTime);
+				m_can_jump = false;
+			}
 		}
 		break;
 
@@ -102,9 +99,9 @@ void Character::Update(float deltaTime, SDL_Event e)
 				m_moving_left = false;
 			}
 			break;
-		default:;
 		}
-	}
+		break;
+	}*/
 
 	AddGravity(deltaTime);
 }
