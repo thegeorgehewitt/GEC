@@ -15,6 +15,7 @@ public:
 
 	bool Circle(Character* character1, Character* character2);
 	bool Box(Rect2D rect1, Rect2D rect2);
+	bool Circle2(Circle2D obj1, Circle2D obj2);
 private:
 	Collisions();
 

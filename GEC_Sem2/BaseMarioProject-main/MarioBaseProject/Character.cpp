@@ -1,7 +1,6 @@
 #include "Character.h"
 
 #include "Character.h"
-#include "Texture2D.h"
 #include "constants.h"
 
 Character::Character(SDL_Renderer* renderer, string imagePath, Vector2D start_position)
@@ -42,7 +41,6 @@ void Character::Render()
 
 void Character::Update(float deltaTime, SDL_Event e)
 {
-	cout << m_can_jump << endl;
 	if (m_moving_left)
 	{
 		MoveLeft(deltaTime);
@@ -61,49 +59,6 @@ void Character::Update(float deltaTime, SDL_Event e)
 		if (m_jump_force <= 0.0f)
 		{
 			m_jumping = false;
-		}
-	}
-
-	SDL_PollEvent(&e);
-
-	switch (e.type)
-	{
-	case SDL_KEYDOWN:
-		switch (e.key.keysym.sym)
-		{
-		case SDLK_UP:
-			if (m_can_jump)
-			{
-				Jump(deltaTime);
-				m_can_jump = false;
-			}
-			break;
-		case SDLK_RIGHT:
-			m_moving_right = true;
-			break;
-		case SDLK_LEFT:
-			m_moving_left = true;
-			break;
-		default:;
-		}
-		break;
-
-	case SDL_KEYUP:
-		switch (e.key.keysym.sym)
-		{
-		case SDLK_RIGHT:
-			if (e.key.repeat == 0)
-			{
-				m_moving_right = false;
-			}
-			break;
-		case SDLK_LEFT:
-			if (e.key.repeat == 0)
-			{
-				m_moving_left = false;
-			}
-			break;
-		default:;
 		}
 	}
 
