@@ -48,10 +48,33 @@ void GameScreenLevel1::Update(float deltaTime, SDL_Event e)
 
 bool GameScreenLevel1::SetUpLevel()
 {
-	my_character_mario = new CharacterMario(m_renderer, "Images/Mario.png", Vector2D(64, 330));
-	my_character_luigi = new CharacterLuigi(m_renderer, "Images/Luigi.png", Vector2D(104, 330));
+	int map[MAP_HEIGHT][MAP_WIDTH] = {
+		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+		{1,1,1,1,1,1,0,0,0,0,1,1,1,1,1,1},
+		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+		{0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0},
+		{1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1},
+		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+		{0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0},
+		{1,1,1,1,1,1,0,0,0,0,1,1,1,1,1,1},
+		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+		{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
+	};
+	if (m_level_map != nullptr)
+	{
+		delete m_level_map;
+	}
+	m_level_map = new LevelMap(map);
+
+	my_character_mario = new CharacterMario(m_renderer, "Images/Mario.png", Vector2D(64, 330), m_level_map);
+	my_character_luigi = new CharacterLuigi(m_renderer, "Images/Luigi.png", Vector2D(104, 330), m_level_map);
+
 	m_background_texture = new Texture2D(m_renderer);
-	if (!m_background_texture->LoadFromFile("Images/test.bmp"))
+
+	if (!m_background_texture->LoadFromFile("Images/BackgroundMB.png"))
 	{
 		std::cout << "Failed to load background texture!" << std::endl;
 		return false;
