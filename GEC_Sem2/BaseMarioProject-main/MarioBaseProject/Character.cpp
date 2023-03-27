@@ -1,6 +1,4 @@
 #include "Character.h"
-
-#include "Character.h"
 #include "constants.h"
 
 Character::Character(SDL_Renderer* renderer, string imagePath, Vector2D start_position, LevelMap* map)

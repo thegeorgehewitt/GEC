@@ -43,6 +43,8 @@ public:
 	float GetCollisionRadius();
 	Rect2D GetCollisionBox() { return Rect2D(m_position.x, m_position.y, m_texture->GetWidth(), m_texture->GetHeight()); }
 	Circle2D GetCollisionCircle() { return Circle2D(m_position.x, m_position.y, m_texture->GetWidth()); }
+	void CancelJump() { m_jumping = false; }
+	bool IsJumping() { if (m_jumping) { return true; } else { return false; } }
 };
 
 #endif _CHARACTER_H

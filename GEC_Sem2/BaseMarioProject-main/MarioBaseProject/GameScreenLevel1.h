@@ -11,6 +11,7 @@
 
 class Texture2D;
 class Character;
+class PowBlock;
 
 class GameScreenLevel1 : GameScreen
 {
@@ -19,6 +20,7 @@ private:
 	Character* my_character_mario;
 	Character* my_character_luigi;
 	LevelMap* m_level_map;
+	PowBlock* m_pow_block;
 
 	void SetLevelMap();
 	bool SetUpLevel();
@@ -28,6 +30,7 @@ public:
 
 	void Render() override;
 	void Update(float deltaTime, SDL_Event e) override;
+	void UpdatePowBlock();
 };
 
 #endif _GAMESCREENLEVEL1_H

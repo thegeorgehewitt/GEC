@@ -1,6 +1,7 @@
 #include "GameScreenLevel1.h"
 #include "Texture2D.h"
 #include "Collisions.h"
+#include "PowBlock.h"
 #include <iostream>
 
 GameScreenLevel1::GameScreenLevel1(SDL_Renderer* renderer) : GameScreen(renderer)
@@ -18,6 +19,9 @@ GameScreenLevel1::~GameScreenLevel1()
 
 	delete my_character_luigi;
 	my_character_luigi = nullptr;
+
+	delete m_pow_block;
+	m_pow_block = nullptr;
 }
 
 void GameScreenLevel1::Render()
@@ -25,14 +29,16 @@ void GameScreenLevel1::Render()
 	m_background_texture->Render(Vector2D(), SDL_FLIP_NONE);
 	my_character_mario->Render();
 	my_character_luigi->Render();
+	m_pow_block->Render();
 }
 
 void GameScreenLevel1::Update(float deltaTime, SDL_Event e)
 {
 	my_character_mario->Update(deltaTime, e);
 	my_character_luigi->Update(deltaTime, e);
+	UpdatePowBlock();
 
-	if (Collisions::Instance()->Circle(my_character_mario, my_character_luigi))
+	/*if (Collisions::Instance()->Circle(my_character_mario, my_character_luigi))
 	{
 		cout << "Circle hit!" << endl;
 	}
@@ -43,6 +49,25 @@ void GameScreenLevel1::Update(float deltaTime, SDL_Event e)
 	if (Collisions::Instance()->Circle2(my_character_mario->GetCollisionCircle(), my_character_luigi->GetCollisionCircle()))
 	{
 		cout << "Cricle2 hit!" << endl;
+	}*/
+}
+
+void GameScreenLevel1::UpdatePowBlock()
+{
+	m_pow_block = new PowBlock(m_renderer, m_level_map);
+
+	if (Collisions::Instance()->Box(my_character_mario->GetCollisionBox(), m_pow_block->GetCollisionBox()))
+	{
+		if (m_pow_block->IsAvailable())
+		{
+			if (my_character_mario->IsJumping())
+			{
+				cout << "Character POW Collision" << endl;
+				//DoScreenShake();
+				m_pow_block->TakeHit();
+				my_character_mario->CancelJump();
+			}
+		}
 	}
 }
 
