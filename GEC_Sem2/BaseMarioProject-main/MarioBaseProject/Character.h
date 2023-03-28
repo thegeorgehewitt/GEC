@@ -16,7 +16,6 @@ class Texture2D;
 class Character
 {
 private:
-	FACING m_facing_direction;
 protected:
 	SDL_Renderer* m_renderer;
 	Vector2D m_position;
@@ -26,8 +25,11 @@ protected:
 	bool m_moving_right;
 	bool m_can_jump;
 	bool m_jumping;
+	bool m_alive;
 	float m_jump_force;
 	float m_collision_radius;
+	float m_movement_speed;
+	FACING m_facing_direction;
 	virtual void MoveLeft(float deltaTime);
 	virtual void MoveRight(float deltaTime);
 	virtual void AddGravity(float deltaTime);
@@ -45,6 +47,8 @@ public:
 	Circle2D GetCollisionCircle() { return Circle2D(m_position.x, m_position.y, m_texture->GetWidth()); }
 	void CancelJump() { m_jumping = false; }
 	bool IsJumping() { if (m_jumping) { return true; } else { return false; } }
+	void SetAlive(bool IsAlive) { m_alive = IsAlive; }
+	bool GetAlive() { return m_alive; }
 };
 
 #endif _CHARACTER_H

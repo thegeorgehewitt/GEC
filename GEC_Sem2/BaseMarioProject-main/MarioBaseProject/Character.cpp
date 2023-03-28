@@ -12,6 +12,7 @@ Character::Character(SDL_Renderer* renderer, string imagePath, Vector2D start_po
 	m_moving_right = false;
 	m_can_jump = false;
 	m_jumping = false;
+	m_alive = true;
 	m_collision_radius = 15;
 
 	if (!m_texture->LoadFromFile(imagePath))

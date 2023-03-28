@@ -41,7 +41,7 @@ void PowBlock::Render()
 			static_cast<int>(m_position.x), static_cast<int>(m_position.y), m_single_sprite_w, m_single_sprite_h
 		};
 
-		m_texture->Render(portion_of_sprite, dest_rect, SDL_FLIP_NONE);
+		m_texture->Render(portion_of_sprite, dest_rect, SDL_FLIP_NONE, 0.0);
 	}
 }
 
