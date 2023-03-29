@@ -24,6 +24,8 @@ GameScreenLevel1::~GameScreenLevel1()
 	m_pow_block = nullptr;
 
 	m_enemies.clear();
+
+	m_coins.clear();
 }
 
 void GameScreenLevel1::Render()
@@ -31,6 +33,11 @@ void GameScreenLevel1::Render()
 	for (int i = 0; i < m_enemies.size(); i++)
 	{
 		m_enemies[i]->Render();
+	}
+
+	for (int i = 0; i < m_coins.size(); i++)
+	{
+		m_coins[i]->Render();
 	}
 
 	m_background_texture->Render(Vector2D(0, m_background_yPos), SDL_FLIP_NONE);
@@ -55,10 +62,26 @@ void GameScreenLevel1::Update(float deltaTime, SDL_Event e)
 		}
 	}
 
+	koopaCountdown -= deltaTime;
+
+	if (koopaCountdown <= 0.0f)
+	{
+		CreateKoopa(Vector2D(150, 32), FACING_RIGHT, KOOPA_SPEED);
+		koopaCountdown = 8.0f;
+	}
+
+	coinCountdown -= deltaTime;
+	if (coinCountdown <= 0.0f)
+	{
+		CreateCoin(Vector2D(247, 16));
+		coinCountdown = 15.0f;
+	}
+
 	my_character_mario->Update(deltaTime, e);
 	my_character_luigi->Update(deltaTime, e);
 	UpdatePowBlock();
 	UpdateEnemies(deltaTime, e);
+	UpdateCoins(deltaTime);
 
 	/*if (Collisions::Instance()->Circle(my_character_mario, my_character_luigi))
 	{
@@ -123,8 +146,19 @@ bool GameScreenLevel1::SetUpLevel()
 	my_character_luigi = new CharacterLuigi(m_renderer, "Images/Luigi.png", Vector2D(104, 330), m_level_map);
 
 	m_pow_block = new PowBlock(m_renderer, m_level_map);
+
+	CreateKoopa(Vector2D(150, 32), FACING_RIGHT, KOOPA_SPEED);
+	CreateKoopa(Vector2D(325, 32), FACING_RIGHT, KOOPA_SPEED);
+
+	CreateCoin(Vector2D(247, 16));
+
+	points = 0;
+
 	m_screenshake = false;
 	m_background_yPos = 0.0f;
+
+	koopaCountdown = 8.0f;
+	coinCountdown = 15.0f;
 
 	m_background_texture = new Texture2D(m_renderer);
 
@@ -144,4 +178,103 @@ void GameScreenLevel1::DoScreenShake()
 	m_screenshake = true;
 	m_shake_time = SHAKE_DURATION;
 	m_wobble = 0.0f;
+
+	for (unsigned int i = 0; i < m_enemies.size(); i++)
+	{
+		m_enemies[i]->TakeDamage();
+	}
+}
+
+void GameScreenLevel1::UpdateEnemies(float deltaTime, SDL_Event e)
+{
+	if (!m_enemies.empty())
+	{
+		int enemyIndexToDelete = -1;
+		for (unsigned int i = 0; i < m_enemies.size(); i++)
+		{
+			// check if off screen to left/right
+			if (m_enemies[i]->GetPosition().x < (float)(-m_enemies[i]->GetCollisionBox().width * 0.5f) || m_enemies[i]->GetPosition().x > SCREEN_WIDTH - (float)(m_enemies[i]->GetCollisionBox().width * 0.55f))
+			{
+				m_enemies[i]->FlipDirection();
+			}
+			// check if at the bottom
+			if (m_enemies[i]->GetPosition().y > 400.0f)
+			{
+				m_enemies[i]->SetAlive(false);
+			}
+
+			m_enemies[i]->Update(deltaTime, e);
+
+			//check for player collision
+			if ((m_enemies[i]->GetPosition().y > 300.0f || m_enemies[i]->GetPosition().y <= 64.0f) && (m_enemies[i]->GetPosition().x < 64.0f || m_enemies[i]->GetPosition().x > SCREEN_WIDTH - 96.0f))
+			{
+				// ignore if behind pipe
+			}
+			else
+			{
+				if (Collisions::Instance()->Circle(m_enemies[i], my_character_mario))
+				{
+					if (m_enemies[i]->GetInjured())
+					{
+						m_enemies[i]->SetAlive(false);
+					}
+					else
+					{
+						//kill mario
+					}
+				}
+			}
+			
+			if (!m_enemies[i]->GetAlive())
+			{
+				enemyIndexToDelete = i;
+			}
+		}
+		
+		if (enemyIndexToDelete != -1)
+		{
+			m_enemies.erase(m_enemies.begin() + enemyIndexToDelete);
+		}
+	}
+}
+
+void GameScreenLevel1::CreateKoopa(Vector2D position, FACING direction, float speed)
+{
+	CharacterKoopa* koopa = new CharacterKoopa(m_renderer, "Images/Koopa.png", m_level_map, position, direction, speed);
+	m_enemies.push_back(koopa);
+}
+
+void GameScreenLevel1::CreateCoin(Vector2D position)
+{
+	CharacterCoin* coin = new CharacterCoin(m_renderer, "Images/Coin.png", position, m_level_map);
+	m_coins.push_back(coin);
+}
+
+void GameScreenLevel1::UpdateCoins(float deltaTime)
+{
+	if (!m_coins.empty())
+	{
+		int coinIndexToDelete = -1;
+
+		for (int i = 0; i < m_coins.size(); i++)
+		{
+			if (Collisions::Instance()->Circle(m_coins[i], my_character_mario))
+			{
+				m_coins[i]->SetAlive(false);
+			}
+
+			m_coins[i]->Update(deltaTime);
+
+			if (!m_coins[i]->GetAlive())
+			{
+				coinIndexToDelete = i;
+			}
+		}
+
+
+		if (coinIndexToDelete != -1)
+		{
+			m_coins.erase(m_coins.begin() + coinIndexToDelete);
+		}
+	}
 }

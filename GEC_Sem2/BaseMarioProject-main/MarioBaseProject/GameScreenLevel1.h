@@ -9,6 +9,7 @@
 #include "CharacterLuigi.h"
 #include "CharacterKoopa.h"
 #include "LevelMap.h"
+#include "CharacterCoin.h"
 #include <vector>
 
 class Texture2D;
@@ -28,13 +29,19 @@ private:
 	float m_shake_time;
 	float m_wobble;
 	float m_background_yPos;
+	float koopaCountdown;
+	float coinCountdown;
+	float points;
 	vector<CharacterKoopa*> m_enemies;
+	vector<CharacterCoin*> m_coins;
 
 	void SetLevelMap();
 	bool SetUpLevel();
 	void DoScreenShake();
 	void UpdateEnemies(float deltaTime, SDL_Event e);
 	void CreateKoopa(Vector2D position, FACING direction, float speed);
+	void CreateCoin(Vector2D position);
+	void UpdateCoins(float deltaTime);
 public:
 	GameScreenLevel1(SDL_Renderer* renderer);
 	~GameScreenLevel1();
