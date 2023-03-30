@@ -3,7 +3,7 @@
 
 CharacterMario::CharacterMario(SDL_Renderer* renderer, string imagePath, Vector2D start_position, LevelMap* map) : Character(renderer, imagePath, start_position, map)
 {
-
+	m_jump_sound = new SoundEffect("SoundFx/Jump.mp3");
 }
 
 void CharacterMario::Update(float deltaTime, SDL_Event e)
@@ -42,4 +42,11 @@ void CharacterMario::Update(float deltaTime, SDL_Event e)
 
 	Character::Update(deltaTime, e);
 
+}
+
+void CharacterMario::Jump(float deltaTime)
+{
+	Character::Jump(deltaTime);
+
+	m_jump_sound->Play(0);
 }

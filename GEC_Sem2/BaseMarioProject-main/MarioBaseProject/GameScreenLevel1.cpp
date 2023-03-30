@@ -63,7 +63,6 @@ void GameScreenLevel1::Update(float deltaTime, SDL_Event e)
 	}
 
 	koopaCountdown -= deltaTime;
-
 	if (koopaCountdown <= 0.0f)
 	{
 		CreateKoopa(Vector2D(150, 32), FACING_RIGHT, KOOPA_SPEED);

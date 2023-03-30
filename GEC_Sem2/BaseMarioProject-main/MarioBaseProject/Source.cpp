@@ -59,7 +59,7 @@ int main(int argc, char* args[])
 bool InitSDL()
 {
 	//Setup SDL
-	if (SDL_Init(SDL_INIT_VIDEO) < 0)
+	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0)
 	{
 		cout << "SDL did not initialise. Error: " << SDL_GetError();
 		return false;
@@ -130,6 +130,7 @@ void CloseSDL()
 	g_music = nullptr;
 
 	//quit SDL subsystems
+	Mix_Quit();
 	IMG_Quit();
 	SDL_Quit();
 }

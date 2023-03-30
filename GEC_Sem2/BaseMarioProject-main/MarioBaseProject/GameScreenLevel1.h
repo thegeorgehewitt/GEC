@@ -10,6 +10,7 @@
 #include "CharacterKoopa.h"
 #include "LevelMap.h"
 #include "CharacterCoin.h"
+#include "SoundEffect.h"
 #include <vector>
 
 class Texture2D;
