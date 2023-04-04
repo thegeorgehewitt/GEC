@@ -26,6 +26,7 @@ private:
 	LevelMap* m_level_map;
 	PowBlock* m_pow_block;
 	SoundEffect* m_coin_sound;
+	SDL_Rect m_camera = { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT };;
 
 	bool m_screenshake;
 	float m_shake_time;
