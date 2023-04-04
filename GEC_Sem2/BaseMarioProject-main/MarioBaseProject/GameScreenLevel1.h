@@ -25,6 +25,7 @@ private:
 	Character* my_character_luigi;
 	LevelMap* m_level_map;
 	PowBlock* m_pow_block;
+	SoundEffect* m_coin_sound;
 
 	bool m_screenshake;
 	float m_shake_time;

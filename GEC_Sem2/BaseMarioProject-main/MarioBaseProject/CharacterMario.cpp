@@ -6,6 +6,11 @@ CharacterMario::CharacterMario(SDL_Renderer* renderer, string imagePath, Vector2
 	m_jump_sound = new SoundEffect("SoundFx/Jump.mp3");
 }
 
+CharacterMario::~CharacterMario()
+{
+	m_jump_sound = nullptr;
+}
+
 void CharacterMario::Update(float deltaTime, SDL_Event e)
 {
 	switch (e.type)

@@ -23,6 +23,9 @@ GameScreenLevel1::~GameScreenLevel1()
 	delete m_pow_block;
 	m_pow_block = nullptr;
 
+	delete m_coin_sound;
+	m_coin_sound = nullptr;
+
 	m_enemies.clear();
 
 	m_coins.clear();
@@ -104,7 +107,6 @@ void GameScreenLevel1::UpdatePowBlock()
 		{
 			if (my_character_mario->IsJumping())
 			{
-				cout << "Character POW Collision" << endl;
 				DoScreenShake();
 				m_pow_block->TakeHit();
 				my_character_mario->CancelJump();
@@ -143,6 +145,8 @@ bool GameScreenLevel1::SetUpLevel()
 
 	my_character_mario = new CharacterMario(m_renderer, "Images/Mario.png", Vector2D(64, 330), m_level_map);
 	my_character_luigi = new CharacterLuigi(m_renderer, "Images/Luigi.png", Vector2D(104, 330), m_level_map);
+
+	m_coin_sound = new SoundEffect("SoundFx/Coin.mp3");
 
 	m_pow_block = new PowBlock(m_renderer, m_level_map);
 
@@ -260,6 +264,7 @@ void GameScreenLevel1::UpdateCoins(float deltaTime)
 			if (Collisions::Instance()->Circle(m_coins[i], my_character_mario))
 			{
 				m_coins[i]->SetAlive(false);
+				m_coin_sound->Play(0);
 			}
 
 			m_coins[i]->Update(deltaTime);
