@@ -9,7 +9,7 @@
 #define GRAVITY 260.0f
 
 #define MAP_HEIGHT 13
-#define MAP_WIDTH 16
+#define MAP_WIDTH 32
 #define TILE_HEIGHT 32
 #define TILE_WIDTH 32
 #define SHAKE_DURATION 0.25f
@@ -19,3 +19,6 @@
 #define KOOPA_SPEED 96.0f
 
 #define ANIMATION_DELAY 0.1f
+
+#define LEVEL_WIDTH 1024
+#define LEVEL_HEIGHT 416

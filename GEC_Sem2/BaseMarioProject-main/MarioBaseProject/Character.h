@@ -34,6 +34,9 @@ protected:
 	virtual void MoveRight(float deltaTime);
 	virtual void AddGravity(float deltaTime);
 	virtual void Jump(float deltaTime);
+
+	SDL_Rect src_rect;
+	SDL_Rect dest_rect;
 public:
 	Character(SDL_Renderer* renderer, string imagePath, Vector2D start_position, LevelMap* map);
 	~Character();

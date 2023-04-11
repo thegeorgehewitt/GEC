@@ -26,7 +26,6 @@ private:
 	LevelMap* m_level_map;
 	PowBlock* m_pow_block;
 	SoundEffect* m_coin_sound;
-	SDL_Rect m_camera = { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT };;
 
 	bool m_screenshake;
 	float m_shake_time;
@@ -52,6 +51,8 @@ public:
 	void Render() override;
 	void Update(float deltaTime, SDL_Event e) override;
 	void UpdatePowBlock();
+
+	SDL_Rect m_camera = { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT };
 };
 
 #endif _GAMESCREENLEVEL1_H

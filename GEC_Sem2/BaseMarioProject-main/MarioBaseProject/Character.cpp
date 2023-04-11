@@ -1,5 +1,6 @@
 #include "Character.h"
 #include "constants.h"
+#include "GameScreenLevel1.h"
 
 Character::Character(SDL_Renderer* renderer, string imagePath, Vector2D start_position, LevelMap* map)
 {
@@ -14,6 +15,9 @@ Character::Character(SDL_Renderer* renderer, string imagePath, Vector2D start_po
 	m_jumping = false;
 	m_alive = true;
 	m_collision_radius = 15;
+	src_rect = { 0, 0, m_texture->GetWidth(), m_texture->GetHeight() };
+	GameScreenLevel1 level1 = GameScreenLevel1(m_renderer);
+	dest_rect = { (int)m_position.x - level1.m_camera.x, (int)m_position.y - level1.m_camera.y, m_texture->GetWidth(), m_texture->GetHeight() };
 
 	if (!m_texture->LoadFromFile(imagePath))
 	{
@@ -31,11 +35,11 @@ void Character::Render()
 {
 	if (m_facing_direction == FACING_RIGHT)
 	{
-		m_texture->Render(m_position, SDL_FLIP_NONE);
+		m_texture->Render(src_rect, dest_rect, SDL_FLIP_NONE);
 	}
 	else
 	{
-		m_texture->Render(m_position, SDL_FLIP_HORIZONTAL);
+		m_texture->Render(src_rect, dest_rect, SDL_FLIP_HORIZONTAL);
 	}
 }
 
