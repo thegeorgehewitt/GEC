@@ -1,6 +1,7 @@
 #include "Character.h"
 #include "constants.h"
 #include "GameScreenLevel1.h"
+#include "GameScreenManager.h"
 
 Character::Character(SDL_Renderer* renderer, string imagePath, Vector2D start_position, LevelMap* map)
 {
@@ -16,8 +17,6 @@ Character::Character(SDL_Renderer* renderer, string imagePath, Vector2D start_po
 	m_alive = true;
 	m_collision_radius = 15;
 	src_rect = { 0, 0, m_texture->GetWidth(), m_texture->GetHeight() };
-	GameScreenLevel1 level1 = GameScreenLevel1(m_renderer);
-	dest_rect = { (int)m_position.x - level1.m_camera.x, (int)m_position.y - level1.m_camera.y, m_texture->GetWidth(), m_texture->GetHeight() };
 
 	if (!m_texture->LoadFromFile(imagePath))
 	{
@@ -31,15 +30,16 @@ Character::~Character()
 	m_renderer = nullptr;
 }
 
-void Character::Render()
+void Character::Render(SDL_Rect camera_rect)
 {
+	dest_rect = { (int)m_position.x - camera_rect.x, (int)m_position.y - camera_rect.y, m_texture->GetWidth(), m_texture->GetHeight() };
 	if (m_facing_direction == FACING_RIGHT)
 	{
-		m_texture->Render(src_rect, dest_rect, SDL_FLIP_NONE);
+		m_texture->Render(src_rect, dest_rect, SDL_FLIP_NONE, 0);
 	}
 	else
 	{
-		m_texture->Render(src_rect, dest_rect, SDL_FLIP_HORIZONTAL);
+		m_texture->Render(src_rect, dest_rect, SDL_FLIP_HORIZONTAL, 0);
 	}
 }
 

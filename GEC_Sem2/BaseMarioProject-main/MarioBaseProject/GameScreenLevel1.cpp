@@ -44,8 +44,8 @@ void GameScreenLevel1::Render()
 	}
 
 	m_background_texture->Render(Vector2D(0, m_background_yPos), SDL_FLIP_NONE);
-	my_character_mario->Render();
-	my_character_luigi->Render();
+	my_character_mario->Render(m_camera);
+	my_character_luigi->Render(m_camera);
 	m_pow_block->Render();
 }
 
@@ -86,6 +86,7 @@ void GameScreenLevel1::Update(float deltaTime, SDL_Event e)
 	UpdateCoins(deltaTime);
 
 	m_camera.x = my_character_mario->GetPosition().x;
+
 	if (m_camera.x < 0)
 	{
 		m_camera.x = 0;

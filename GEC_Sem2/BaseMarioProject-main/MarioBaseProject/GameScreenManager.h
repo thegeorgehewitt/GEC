@@ -8,7 +8,7 @@ class GameScreenManager
 {
 private:
 	SDL_Renderer* m_renderer;
-	GameScreen* m_current_screen;
+	
 public:
 	GameScreenManager(SDL_Renderer* renderer, SCREENS startScreen);
 	~GameScreenManager();
@@ -17,5 +17,7 @@ public:
 	void Update(float deltaTime, SDL_Event e);
 
 	void ChangeScreen(SCREENS new_screen);
+
+	GameScreen* m_current_screen;
 };
 
