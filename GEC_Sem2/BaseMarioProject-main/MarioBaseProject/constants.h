@@ -14,7 +14,7 @@
 #define TILE_WIDTH 32
 #define SHAKE_DURATION 0.25f
 
-#define INJURED_TIME 2.5f;
+#define INJURED_TIME 3.5f;
 #define INITIAL_JUMP_FORCE_SMALL 200.0f
 #define KOOPA_SPEED 96.0f
 

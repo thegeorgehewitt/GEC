@@ -16,7 +16,6 @@ Character::Character(SDL_Renderer* renderer, string imagePath, Vector2D start_po
 	m_jumping = false;
 	m_alive = true;
 	m_collision_radius = 15;
-	src_rect = { 0, 0, m_texture->GetWidth(), m_texture->GetHeight() };
 
 	if (!m_texture->LoadFromFile(imagePath))
 	{
@@ -32,6 +31,7 @@ Character::~Character()
 
 void Character::Render(SDL_Rect camera_rect)
 {
+	src_rect = { 0, 0, m_texture->GetWidth(), m_texture->GetHeight() };
 	dest_rect = { (int)m_position.x - camera_rect.x, (int)m_position.y - camera_rect.y, m_texture->GetWidth(), m_texture->GetHeight() };
 	if (m_facing_direction == FACING_RIGHT)
 	{

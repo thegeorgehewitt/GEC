@@ -11,7 +11,7 @@ public:
 	~CharacterCoin();
 
 	void Update(float deltaTime);
-	void Render();
+	void Render(SDL_Rect camera_rect);
 
 	float m_frame_delay;
 private:

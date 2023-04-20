@@ -35,18 +35,19 @@ void GameScreenLevel1::Render()
 {
 	for (int i = 0; i < m_enemies.size(); i++)
 	{
-		m_enemies[i]->Render();
+		m_enemies[i]->Render(m_camera);
 	}
 
 	for (int i = 0; i < m_coins.size(); i++)
 	{
-		m_coins[i]->Render();
+		m_coins[i]->Render(m_camera);
 	}
 
-	m_background_texture->Render(Vector2D(0, m_background_yPos), SDL_FLIP_NONE);
+	m_background_texture->Render(Vector2D(0 - m_camera.x, m_background_yPos - m_camera.y), SDL_FLIP_NONE);
+	m_background_texture->Render(Vector2D(SCREEN_WIDTH - m_camera.x, m_background_yPos - m_camera.y), SDL_FLIP_NONE);
 	my_character_mario->Render(m_camera);
 	my_character_luigi->Render(m_camera);
-	m_pow_block->Render();
+	m_pow_block->Render(m_camera);
 }
 
 void GameScreenLevel1::Update(float deltaTime, SDL_Event e)
@@ -85,7 +86,7 @@ void GameScreenLevel1::Update(float deltaTime, SDL_Event e)
 	UpdateEnemies(deltaTime, e);
 	UpdateCoins(deltaTime);
 
-	m_camera.x = my_character_mario->GetPosition().x;
+	m_camera.x = my_character_mario->GetPosition().x - (SCREEN_WIDTH / 2);
 
 	if (m_camera.x < 0)
 	{
@@ -155,7 +156,7 @@ bool GameScreenLevel1::SetUpLevel()
 {
 	SetLevelMap();
 
-	my_character_mario = new CharacterMario(m_renderer, "Images/Mario.png", Vector2D(64, 330), m_level_map);
+	my_character_mario = new CharacterMario(m_renderer, "Images/Mario.png", Vector2D(144, 330), m_level_map);
 	my_character_luigi = new CharacterLuigi(m_renderer, "Images/Luigi.png", Vector2D(104, 330), m_level_map);
 
 	m_coin_sound = new SoundEffect("SoundFx/Coin.mp3");
@@ -208,7 +209,7 @@ void GameScreenLevel1::UpdateEnemies(float deltaTime, SDL_Event e)
 		for (unsigned int i = 0; i < m_enemies.size(); i++)
 		{
 			// check if off screen to left/right
-			if (m_enemies[i]->GetPosition().x < (float)(-m_enemies[i]->GetCollisionBox().width * 0.5f) || m_enemies[i]->GetPosition().x > SCREEN_WIDTH - (float)(m_enemies[i]->GetCollisionBox().width * 0.55f))
+			if (m_enemies[i]->GetPosition().x < (float)(m_enemies[i]->GetCollisionBox().width * 0.5f) || m_enemies[i]->GetPosition().x > SCREEN_WIDTH - (float)(m_enemies[i]->GetCollisionBox().width * 0.55f))
 			{
 				m_enemies[i]->FlipDirection();
 			}

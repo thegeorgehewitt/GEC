@@ -29,6 +29,7 @@ protected:
 	float m_jump_force;
 	float m_collision_radius;
 	float m_movement_speed;
+	int centralX_position;
 	FACING m_facing_direction;
 	virtual void MoveLeft(float deltaTime);
 	virtual void MoveRight(float deltaTime);

@@ -13,7 +13,7 @@ public:
 	void TakeDamage();
 	void Jump();
 
-	void Render();
+	void Render(SDL_Rect rect);
 	void Update(float deltaTime, SDL_Event e);
 
 	bool GetInjured() { return m_injured; }
