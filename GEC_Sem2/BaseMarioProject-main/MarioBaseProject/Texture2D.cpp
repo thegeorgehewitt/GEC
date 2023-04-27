@@ -79,7 +79,7 @@ void Texture2D::Render(Vector2D new_position, SDL_Rect clip, SDL_RendererFlip fl
 {
 	SDL_Rect render_location = { new_position.x, new_position.y, m_width, m_height };
 
-	if (SDL_RectEmpty(&clip))
+	if (!SDL_RectEmpty(&clip))
 	{
 		render_location.w = clip.w;
 		render_location.y = clip.y;

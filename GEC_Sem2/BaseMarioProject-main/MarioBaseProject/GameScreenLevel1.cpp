@@ -164,7 +164,7 @@ bool GameScreenLevel1::SetUpLevel()
 	m_pow_block = new PowBlock(m_renderer, m_level_map);
 
 	CreateKoopa(Vector2D(150, 32), FACING_RIGHT, KOOPA_SPEED);
-	CreateKoopa(Vector2D(325, 32), FACING_RIGHT, KOOPA_SPEED);
+	CreateKoopa(Vector2D(325, 32), FACING_LEFT, KOOPA_SPEED);
 
 	CreateCoin(Vector2D(247, 16));
 
@@ -208,11 +208,17 @@ void GameScreenLevel1::UpdateEnemies(float deltaTime, SDL_Event e)
 		int enemyIndexToDelete = -1;
 		for (unsigned int i = 0; i < m_enemies.size(); i++)
 		{
-			// check if off screen to left/right
-			if (m_enemies[i]->GetPosition().x < (float)(m_enemies[i]->GetCollisionBox().width * 0.5f) || m_enemies[i]->GetPosition().x > SCREEN_WIDTH - (float)(m_enemies[i]->GetCollisionBox().width * 0.55f))
+			if (m_enemies[i]->GetPosition().y < 300.0f)
 			{
-				m_enemies[i]->FlipDirection();
+				// check if off screen to left/right
+				if (m_enemies[i]->GetPosition().x < (float)(-m_enemies[i]->GetCollisionBox().width * 0.5f) || m_enemies[i]->GetPosition().x > LEVEL_WIDTH - (float)(m_enemies[i]->GetCollisionBox().width * 0.55f))
+				{
+					m_enemies[i]->FlipDirection();
+					cout << "flipped " << i << endl;
+				}
 			}
+			
+
 			// check if at the bottom
 			if (m_enemies[i]->GetPosition().y > 400.0f)
 			{
@@ -222,7 +228,7 @@ void GameScreenLevel1::UpdateEnemies(float deltaTime, SDL_Event e)
 			m_enemies[i]->Update(deltaTime, e);
 
 			//check for player collision
-			if ((m_enemies[i]->GetPosition().y > 300.0f || m_enemies[i]->GetPosition().y <= 64.0f) && (m_enemies[i]->GetPosition().x < 64.0f || m_enemies[i]->GetPosition().x > SCREEN_WIDTH - 96.0f))
+			if ((m_enemies[i]->GetPosition().y > 300.0f || m_enemies[i]->GetPosition().y <= 64.0f) && (m_enemies[i]->GetPosition().x < 64.0f || m_enemies[i]->GetPosition().x > LEVEL_WIDTH - 96.0f))
 			{
 				// ignore if behind pipe
 			}

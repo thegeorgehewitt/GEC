@@ -72,7 +72,7 @@ void CharacterKoopa::Render(SDL_Rect camera_rect)
 
 void CharacterKoopa::Update(float deltaTime, SDL_Event e)
 {
-	//Character::Update(deltaTime, e);
+	Character::Update(deltaTime, e);
 
 	if (!m_injured)
 	{
@@ -98,10 +98,24 @@ void CharacterKoopa::Update(float deltaTime, SDL_Event e)
 		{
 			FlipRightwayUp();
 			m_injured = false;
+
 		}
 	}
 
-	Character::Update(deltaTime, e);
+	if (m_position.x <= 0 && m_position.y < 300)
+	{
+		m_facing_direction == FACING_RIGHT;
+		m_moving_left = false;
+		m_moving_right = true;
+	}
+
+	if (m_position.x >= LEVEL_WIDTH && m_position.y < 300)
+	{
+		m_facing_direction == FACING_LEFT;
+		m_moving_left = true;
+		m_moving_right = false;
+	}
+
 }
 
 void CharacterKoopa::FlipDirection()
