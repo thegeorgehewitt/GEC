@@ -3,6 +3,7 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include <SDL_mixer.h>
+#include <SDL_ttf.h>
 #include "constants.h"
 #include "Commons.h"
 #include "Texture2D.h"
@@ -99,6 +100,10 @@ bool InitSDL()
 					cout << "Mixer could not init. Error: " << Mix_GetError();
 					return false;
 				}
+				else if (TTF_Init() != 0)
+				{
+					cout << "TTF could not init. Error: " << TTF_GetError();
+				}
 			}
 		}
 		else
@@ -132,6 +137,7 @@ void CloseSDL()
 	//quit SDL subsystems
 	Mix_Quit();
 	IMG_Quit();
+	TTF_Quit();
 	SDL_Quit();
 }
 

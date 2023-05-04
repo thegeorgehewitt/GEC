@@ -39,7 +39,6 @@ void GameScreenManager::ChangeScreen(SCREENS new_screen)
 	switch (new_screen)
 	{
 	case SCREEN_LEVEL1:
-		std::cout << "new gamescreenlevel1 created" << std::endl;
 		tempScreen = new GameScreenLevel1(m_renderer);
 		m_current_screen = (GameScreen*)tempScreen;
 		tempScreen = nullptr;

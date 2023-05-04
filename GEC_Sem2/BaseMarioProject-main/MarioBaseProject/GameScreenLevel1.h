@@ -11,6 +11,7 @@
 #include "LevelMap.h"
 #include "CharacterCoin.h"
 #include "SoundEffect.h"
+#include "TextRenderer.h"
 #include <vector>
 
 class Texture2D;
@@ -26,6 +27,7 @@ private:
 	LevelMap* m_level_map;
 	PowBlock* m_pow_block;
 	SoundEffect* m_coin_sound;
+	TextRenderer* m_text;
 
 	bool m_screenshake;
 	float m_shake_time;
@@ -34,6 +36,9 @@ private:
 	float koopaCountdown;
 	float coinCountdown;
 	float points;
+	float score = 0;
+	float old_score = 0;
+	string message = "score";
 	vector<CharacterKoopa*> m_enemies;
 	vector<CharacterCoin*> m_coins;
 
