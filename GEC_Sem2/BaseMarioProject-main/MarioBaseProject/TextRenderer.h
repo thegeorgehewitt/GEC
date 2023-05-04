@@ -14,12 +14,12 @@ public:
 	~TextRenderer();
 
 	void Render(int x, int y);
-	bool LoadFont(const string path, float fontSize, const string message, SDL_Color colour);
+	bool LoadFont(const string& path, float fontSize, const string message, SDL_Color colour);
 
 private:
 	SDL_Renderer* m_renderer;
 	SDL_Texture* m_texture;
-	mutable SDL_Rect* text_rect;
+	mutable SDL_Rect text_rect;
 	TTF_Font* font;
 };
 

@@ -157,9 +157,9 @@ bool Update()
 	case SDL_QUIT:
 		return true;
 		break;
-	case SDL_MOUSEBUTTONDOWN:
+	/*case SDL_MOUSEBUTTONDOWN:
 		return true;
-		break;
+		break;*/
 	case SDL_KEYUP:
 		switch (e.key.keysym.sym)
 		{

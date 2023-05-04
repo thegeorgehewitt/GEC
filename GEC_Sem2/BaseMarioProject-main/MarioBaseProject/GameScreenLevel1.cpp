@@ -48,7 +48,7 @@ void GameScreenLevel1::Render()
 	my_character_mario->Render(m_camera);
 	my_character_luigi->Render(m_camera);
 	m_pow_block->Render(m_camera);
-	m_text->Render(SCREEN_WIDTH / 2, SCREEN_HEIGHT/10);
+	m_text->Render(5, 5);
 }
 
 void GameScreenLevel1::Update(float deltaTime, SDL_Event e)
@@ -101,7 +101,7 @@ void GameScreenLevel1::Update(float deltaTime, SDL_Event e)
 	if (m_text != nullptr && score != old_score)
 	{
 		old_score = score;
-		m_text->LoadFont("Fonts/Debrosee-ALPnL.ttf", 50, message, { 255,165,0,255 });
+		m_text->LoadFont("Fonts/Cabal-w5j3.ttf", 24, message + to_string(score), {255,165,0,255});
 	}
 
 	/*if (Collisions::Instance()->Circle(my_character_mario, my_character_luigi))
@@ -126,7 +126,6 @@ void GameScreenLevel1::UpdatePowBlock()
 		{
 			if (my_character_mario->IsJumping())
 			{
-				score += 10;
 				DoScreenShake();
 				m_pow_block->TakeHit();
 				my_character_mario->CancelJump();
@@ -144,7 +143,7 @@ void GameScreenLevel1::SetLevelMap()
 		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
 		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
 		{0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0},
-		{1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1},
+		{1,1,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1},
 		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
 		{0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0},
 		{1,1,1,1,1,1,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,1,1,1,1,1,1},
@@ -193,7 +192,7 @@ bool GameScreenLevel1::SetUpLevel()
 	}
 	else
 	{
-		if (!m_text->LoadFont("Fonts/Debrosee-ALPnL.ttf", 50, message, { 255,165,0,255 }))
+		if (!m_text->LoadFont("Fonts/Cabal-w5j3.ttf", 24, message, { 255,165,0,255 }))
 		{
 			std::cout << "Failed to load text." << std::endl;
 			return false;
@@ -256,6 +255,7 @@ void GameScreenLevel1::UpdateEnemies(float deltaTime, SDL_Event e)
 					if (m_enemies[i]->GetInjured())
 					{
 						m_enemies[i]->SetAlive(false);
+						score += 10;
 					}
 					else
 					{
@@ -301,6 +301,8 @@ void GameScreenLevel1::UpdateCoins(float deltaTime)
 			{
 				m_coins[i]->SetAlive(false);
 				m_coin_sound->Play(0);
+
+				score += 5;
 			}
 
 			m_coins[i]->Update(deltaTime);

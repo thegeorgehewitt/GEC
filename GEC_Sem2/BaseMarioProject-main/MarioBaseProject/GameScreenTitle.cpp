@@ -23,7 +23,7 @@ void GameScreenTitle::Update(float deltaTime, SDL_Event e) {}
 bool GameScreenTitle::SetUpLevel()
 {
 	m_background_texture = new Texture2D(m_renderer);
-	if (!m_background_texture->LoadFromFile("Images/title.jpg"))
+	if (!m_background_texture->LoadFromFile("Images/TitleScreen.png"))
 	{
 		std::cout << "Failed to load background texture!" << std::endl;
 		return false;

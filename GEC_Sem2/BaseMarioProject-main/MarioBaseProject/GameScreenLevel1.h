@@ -36,9 +36,9 @@ private:
 	float koopaCountdown;
 	float coinCountdown;
 	float points;
-	float score = 0;
-	float old_score = 0;
-	string message = "score";
+	int score = 0;
+	int old_score = 0;
+	string message = "Score: ";
 	vector<CharacterKoopa*> m_enemies;
 	vector<CharacterCoin*> m_coins;
 

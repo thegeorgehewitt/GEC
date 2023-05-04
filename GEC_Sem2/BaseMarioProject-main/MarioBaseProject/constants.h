@@ -1,7 +1,7 @@
 #pragma once
 //screen Dimensions
 #define SCREEN_WIDTH 512
-#define SCREEN_HEIGHT 416
+#define SCREEN_HEIGHT 412
 
 #define MOVEMENTSPEED 50.0f
 #define JUMP_FORCE_DECREMENT 400.0f
@@ -21,4 +21,4 @@
 #define ANIMATION_DELAY 0.1f
 
 #define LEVEL_WIDTH 1024
-#define LEVEL_HEIGHT 416
+#define LEVEL_HEIGHT 412

@@ -98,7 +98,6 @@ void CharacterKoopa::Update(float deltaTime, SDL_Event e)
 		{
 			FlipRightwayUp();
 			m_injured = false;
-
 		}
 	}
 
